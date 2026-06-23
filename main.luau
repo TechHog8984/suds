@@ -70,6 +70,9 @@ elseif INPUT_FILEPATH then
     end
     code = fs.readFile(INPUT_FILEPATH)
     assert(not INPUT_FILEPATH, "you cannot provide both --code and --script")
+else
+    stdio.ewrite("you must provide either --code or --script\n")
+    process.exit(1)
 end
 
 local function byte_ify(str)
@@ -127,14 +130,15 @@ local ret = {xpcall(chunk, function(err)
 end)}
 table.remove(ret, 1)
 
-local loghistory = game:GetService("LogService"):GetLogHistory()
-local logs = {}
+-- local loghistory = game:GetService("LogService"):GetLogHistory()
+-- local logs = {}
 
-for i,v in next, loghistory do
-    logs[i] = assert(v.message)
-end
+-- for i,v in next, loghistory do
+--     logs[i] = assert(v.message)
+-- end
 
-return table.concat(logs, '\n'), unpack(ret)
+-- return table.concat(logs, '\n'), unpack(ret)
+return unpack(ret)
 ]]
 
 local payloads = {
